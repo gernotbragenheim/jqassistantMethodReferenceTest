@@ -1,0 +1,17 @@
+:toc:
+= jQAssistant Report
+
+[[TestGroup]]
+[role=group,includesConstraints="testrules:methodReferenceFails"]
+== TestGroup
+
+[[testrules:methodReferenceFails]]
+.Fails on detecting method references
+[source,cypher,role=constraint]
+----
+MATCH
+  (classA:Class{name:"MyTestClassA"})-[:DECLARES]->(accessingMember)-[accessingInvoke:INVOKES]
+  ->(method)<-[:DECLARES]-(classB:Class{name:"MyTestClassB"})
+RETURN
+  classA,accessingInvoke,classB
+----
